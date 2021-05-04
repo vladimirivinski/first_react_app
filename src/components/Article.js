@@ -12,7 +12,7 @@ class Article extends Component {
       <div>
         <h2>
           {article.title}
-          <button onClick={this.handleClick}>close</button>
+          <button onClick={this.handleClick}>{this.state.isOpen ? 'close' : 'open'}</button>
         </h2>
         {body}
         <h3> creation date: {new Date(article.date).toDateString()}</h3>
