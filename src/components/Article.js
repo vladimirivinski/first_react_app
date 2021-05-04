@@ -1,9 +1,28 @@
 import React, { Component } from 'react';
 
 class Article extends Component {
-  state = {
-    isOpen: true,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isOpen: props.defaultOpen,
+    };
+  }
+
+  componentWillUnmount() {
+    console.log('=======', 'mounting');
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    console.log('======', 'will receive props');
+
+    if (nextProps.defaultOpen !== this.props.defaultOpen)
+      this.setState({
+        isOpen: nextProps.defaultOpen,
+      });
+  }
+
+  UNSAFE_componentWillUpdate() {}
 
   render() {
     const { article } = this.props;
@@ -13,7 +32,7 @@ class Article extends Component {
         <div className='card-header'>
           <h2>
             {article.title}
-            <button onClick={this.handleClick} className='btn btn-primary btn-lg right'>
+            <button onClick={this.handleClick} className='btn btn-primary btn-lg float-right'>
               {this.state.isOpen ? 'close' : 'open'}
             </button>
           </h2>
